@@ -1,0 +1,9 @@
+.table th {
+	background: #13c2c2;
+	color: white;
+	border: none;
+}
+
+#pc-dt-filter .dataTables_filter {
+	margin-bottom: 15px;
+}
