@@ -5,9 +5,9 @@ class Reservation_model extends CI_Model
 {
     private $tbl_header_booking = "header_booking";
     private $tbl_detail_booking = "detail_booking";
-    private $tbl_ruangan = "ruangan";
+    private $tbl_ruangan = "ms_ruangan";
     private $onJoinBooking = "header_booking.id_booking = detail_booking.id_booking";
-    private $onJoinRuangan = "ruangan.id_ruangan = header_booking.id_ruangan";
+    private $onJoinRuangan = "ms_ruangan.id_ruangan = header_booking.id_ruangan";
     private $leftJoin = 'left';
     private $dbReservation;
 

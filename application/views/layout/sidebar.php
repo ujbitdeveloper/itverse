@@ -37,19 +37,24 @@
                             <span class="pc-mtext">Service</span>
                         </a>
                     </li>
-                    <li class="pc-item">
-                        <a href="<?php echo site_url('service/approval'); ?>" class="pc-link">
-                            <span class="pc-micon"><i class="ti ti-man"></i></span>
-                            <span class="pc-mtext">Approval</span>
-                        </a>
-                    </li>
-                    <li class="pc-item">
+                    <?php
+                    $session = $this->session->userdata('ses_log_user');
 
-                        <a href="<?php echo site_url('service/history_service'); ?>" class="pc-link">
-                            <span class="pc-micon"><i class="ti ti-history"></i></span>
-                            <span class="pc-mtext">History Services</span>
-                        </a>
-                    </li>
+                    if ($session && $session['id_section'] == '2') {
+                    ?>
+                        <li class="pc-item">
+                            <a href="<?php echo site_url('approval_service'); ?>" class="pc-link">
+                                <span class="pc-micon"><i class="ti ti-man"></i></span>
+                                <span class="pc-mtext">Approval</span>
+                            </a>
+                        </li>
+                        <li class="pc-item">
+                            <a href="<?php echo site_url('history_repair'); ?>" class="pc-link">
+                                <span class="pc-micon"><i class="ti ti-history"></i></span>
+                                <span class="pc-mtext">History Repair</span>
+                            </a>
+                        </li>
+                    <?php } ?>
 
                     <li class="pc-item pc-caption">
                         <label>Guest Book</label>

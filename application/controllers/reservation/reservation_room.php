@@ -2,7 +2,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Index extends CI_Controller
+class Reservation_room extends CI_Controller
 {
     private $namaUser;
     private $idUser;
@@ -16,7 +16,7 @@ class Index extends CI_Controller
         //data session login
         $session = $this->session->userdata('ses_log_user');
         $this->namaUser = $session['nama_karyawan'];
-        $this->idUser = $session['id_user'];
+        $this->idUser = $session['id_karyawan'];
         $this->nik = $session['nik'];
 
         //load data model

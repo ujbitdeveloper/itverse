@@ -33,7 +33,8 @@
             <!-- [ Main Content ] start -->
             <div class="row">
                 <?php
-                $this->load->view('charger/edit_charger_modal') ?>
+                // $this->load->view('charger/edit_charger_modal') 
+                ?>
 
                 <!-- [ basic-table ] start -->
                 <div class="col-xl-12">
@@ -44,21 +45,19 @@
                         <div class="card-body table-border-style">
                             <div class="table-responsive" id="pc-dt-filter">
                                 <section class="table-section">
-                                    <table id="tblCharger" class="table table-striped table-bordered nowrap">
+                                    <table id="tblRepair" class="table table-striped table-bordered nowrap">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
                                                 <th>No Request</th>
-                                                <th>Nama Karyawan</th>
-                                                <th>Departemen</th>
                                                 <th>Kategori</th>
                                                 <th>Tanggal Request</th>
-                                                <th>Durasi Pengerjaan</th>
                                                 <th>Tanggal Selesai</th>
                                                 <th>Keterangan Request</th>
                                                 <th>Keterangan Pengerjaan</th>
                                                 <th>IT Support</th>
                                                 <th>Status</th>
+                                                <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -78,6 +77,7 @@
     <?php $this->load->view('layout/footer') ?>
 
 </body>
-<script type="text/javascript" src="<?php echo base_url('assets/request/js/charger.js?v=') . time(); ?>"></script>
+<script type="text/javascript" src="<?php echo base_url('assets/request/ticketing/repair.js?v=') . time(); ?>"></script>
+
 
 </html>

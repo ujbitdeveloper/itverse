@@ -54,17 +54,26 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = TRUE;
 
 //custom routes reservation
-$route['reservation'] = 'reservation/index';
-$route['data_reservation'] = 'reservation/index/get_data_reservation';
-$route['insert_reservation'] = 'reservation/index/insert_data_reservation';
-$route['form_reservation'] = 'reservation/index/form_reservation';
-$route['get_data_ruangan'] = 'reservation/index/data_ruangan';
-$route['update_reservation'] = 'reservation/index/edit_data_reservation';
+$route['reservation'] = 'reservation/reservation_room';
+$route['data_reservation'] = 'reservation/reservation_room/get_data_reservation';
+$route['insert_reservation'] = 'reservation/reservation_room/insert_data_reservation';
+$route['form_reservation'] = 'reservation/reservation_room/form_reservation';
+$route['get_data_ruangan'] = 'reservation/reservation_room/data_ruangan';
+$route['update_reservation'] = 'reservation/reservation_room/edit_data_reservation';
 
 //custom routes ticketing service item
-$route['service'] = 'ticketing/index';
-$route['service/approval'] = 'ticketing/index/approval_service';
-$route['service/history_service'] = 'ticketing/index/history_services';
+$route['service'] = 'ticketing/ticketing_service';
+$route['data_service'] = 'ticketing/ticketing_service/get_data_service';
+$route['insert_service'] = 'ticketing/ticketing_service/insert_data_service';
+$route['get_data_kategori'] = 'ticketing/ticketing_service/get_data_kategori';
+
+//approval service
+$route['approval_service'] = 'ticketing/approval_service';
+$route['data_approval_service'] = 'ticketing/approval_service/get_data_approval_service';
+// history pengerjaan
+$route['history_repair'] = 'ticketing/history_repair';
+$route['data_history_repair'] = 'ticketing/history_repair/get_data_history_repair';
+
 
 //custom routes guest
 $route['guest'] = 'guest/index';
