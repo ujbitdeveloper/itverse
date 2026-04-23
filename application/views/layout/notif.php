@@ -84,59 +84,9 @@ if ($message == 'berhasilInsert') {
         <div class="text"><i class="fa fa-check"></i> Reset Password Success</div>
     </div>
     <br>
-<?php } elseif ($message == 'berhasilActive') { ?>
-    <div id="notif" class="alert alert-success" style="margin-top: 3px">
-        <div class="text"><i class="fa fa-check"></i> Non Active Success</div>
-    </div>
-    <br>
-<?php } elseif ($message == 'berhasilInsertDataOffline') { ?>
-    <div id="notif" class="alert alert-success" style="margin-top: 3px">
-        <div class="text"><i class="fa fa-check"></i> Insert Data Batch Success</div>
-    </div>
-    <br>
-<?php } elseif ($message == 'GagalActive') { ?>
+<?php } elseif ($message == 'jamOverlap') { ?>
     <div id="notif" class="alert alert-danger" style="margin-top: 3px">
-        <div class="text"> Non Active Failed</div>
-    </div>
-    <br>
-<?php } elseif ($message == 'dataDuplicate') { ?>
-    <div id="notif" class="alert alert-danger" style="margin-top: 3px">
-        <div class="text"> Data is Duplicate</div>
-    </div>
-    <br>
-<?php } elseif ($message == 'usernameDuplicate') { ?>
-    <div id="notif" class="alert alert-danger" style="margin-top: 3px">
-        <div class="text"> Username is Duplicate</div>
-    </div>
-    <br>
-<?php } elseif ($message == 'gagalInsertDataOffline') { ?>
-    <div id="notif" class="alert alert-danger" style="margin-top: 3px">
-        <div class="text">Insert Batch Data Failed</div>
-    </div>
-    <br>
-<?php } elseif ($message == 'gagalMengunggahFile') { ?>
-    <div id="notif" class="alert alert-danger" style="margin-top: 3px">
-        <div class="text">Insert Batch Data Failed</div>
-    </div>
-    <br>
-<?php } elseif ($message == 'fileUnggahKosong') { ?>
-    <div id="notif" class="alert alert-danger" style="margin-top: 3px">
-        <div class="text">Failed open File</div>
-    </div>
-    <br>
-<?php } elseif ($message == 'fileUnggahKosong') { ?>
-    <div id="notif" class="alert alert-danger" style="margin-top: 3px">
-        <div class="text">Failed open File</div>
-    </div>
-    <br>
-<?php } elseif ($message == 'hanyaText') { ?>
-    <div id="notif" class="alert alert-danger" style="margin-top: 3px">
-        <div class="text">Just Accept .txt, please check your file</div>
-    </div>
-    <br>
-<?php } elseif ($message == 'formatKeySalah') { ?>
-    <div id="notif" class="alert alert-success" style="margin-top: 3px">
-        <div class="text"><i class="fa fa-check"></i> Key Not Valid</div>
+        <div class="text"><i class="ti ti-letter-x"></i>sudah ada yang booking dijam dan ruangan tersebut</div>
     </div>
     <br>
 <?php } ?>

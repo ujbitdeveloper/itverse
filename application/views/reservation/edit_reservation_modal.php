@@ -13,17 +13,10 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="userForm" action="<?php echo site_url('data/charger_data/edit_charger') ?>" autocomplete="off" method="post">
-                        <input type="hidden" id="id" name="id">
-                        <div class="col-md-12">
-                            <div class="form-floating mb-0">
-                                <div class="form-group">
-                                    <label class="form-label" for="Ruangan_edit">Ruangan</label>
-                                    <select class="form-select" id="Ruangan_edit" name="Ruangan_edit">
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
+                    <form id="userForm" action="<?php echo site_url('edit_reservation') ?>" autocomplete="off" method="post">
+                        <input type="hidden" id="idBooking" name="idBooking">
+                        <input type="hidden" id="idRuangan" name="idRuangan">
+
                         <div class="row g-4">
                             <div class="col-md-6">
                                 <div class="form-group">

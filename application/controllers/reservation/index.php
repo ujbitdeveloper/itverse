@@ -34,4 +34,9 @@ class Index extends CI_Controller
     {
         $this->load->view('reservation/form_new_reservation');
     }
+
+    public function show_meeting()
+    {
+        $this->load->view('reservation/show_meeting');
+    }
 }

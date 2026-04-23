@@ -17,15 +17,55 @@ class Reservation_model extends CI_Model
         $this->dbReservation = $this->load->database('reservation', TRUE);
     }
 
+    function get_meeting_today($id_ruangan)
+    {
+        $this->dbReservation->select('*');
+        $this->dbReservation->from($this->tbl_header_booking);
+        $this->dbReservation->join($this->tbl_detail_booking, $this->onJoinBooking, 'left');
+        $this->dbReservation->where('id_ruangan', $id_ruangan);
+        $this->dbReservation->where('tanggal', date('Y-m-d'));
+        $this->dbReservation->order_by('jam_mulai', 'ASC');
+        $query = $this->dbReservation->get();
+
+        if ($query && $query->num_rows() > 0) {
+            return $query->result();
+        }
+
+        return [];
+    }
+
+
     function get_data_reservation($idUser)
     {
-        $selectData = 'header_booking.id_booking,nama,nama_ruangan,keterangan,tanggal,jam_mulai,jam_selesai';
+        $selectData = 'header_booking.id_booking,nama,nama_ruangan,keterangan,tanggal,jam_mulai,jam_selesai, header_booking.is_active, header_booking.id_ruangan';
         $this->dbReservation->select($selectData);
         $this->dbReservation->from($this->tbl_header_booking);
         $this->dbReservation->join($this->tbl_detail_booking, $this->onJoinBooking, $this->leftJoin);
         $this->dbReservation->join($this->tbl_ruangan, $this->onJoinRuangan, $this->leftJoin);
         $this->dbReservation->where('id_user', $idUser);
+        $this->dbReservation->order_by('is_active', 'desc');
         $query = $this->dbReservation->get_where();
+        $data = array();
+        if ($query !== FALSE && $query->num_rows() > 0) {
+            $data = $query->result_array();
+        }
+        return $data;
+    }
+
+    function pengecekanoverlap($tanggal, $jam_mulai, $jam_selesai, $id_ruangan)
+    {
+        $query = $this->dbReservation->query("
+            SELECT * FROM header_booking
+            JOIN detail_booking ON detail_booking.id_booking=header_booking.id_booking
+            WHERE header_booking.id_ruangan='$id_ruangan'
+            AND detail_booking.tanggal='$tanggal'
+            AND header_booking.is_active = 1
+            AND NOT (
+                detail_booking.jam_selesai <= '$jam_mulai'
+                OR detail_booking.jam_mulai >= '$jam_selesai'
+            )
+        ");
+
         $data = array();
         if ($query !== FALSE && $query->num_rows() > 0) {
             $data = $query->result_array();
@@ -45,6 +85,19 @@ class Reservation_model extends CI_Model
             $data = $query->result_array();
         }
         return $data;
+    }
+    function update_data($data, $table, $where)
+    {
+        $this->dbReservation->trans_start();
+        $this->dbReservation->where($where);
+        $this->dbReservation->update($table, $data);
+        if ($this->dbReservation->trans_status() === FALSE) {
+            $this->dbReservation->trans_rollback();
+            return array('result' => false);
+        } else {
+            $this->dbReservation->trans_commit();
+            return array('result' => true);
+        }
     }
 
     function insert_data($data, $table)

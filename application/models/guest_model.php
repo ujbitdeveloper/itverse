@@ -19,12 +19,12 @@ class Guest_model extends CI_Model
 
     function get_data_guest()
     {
-        $selectData = '*';
+        $selectData = 'header_detail.*, header_guest.id_jenis,header_guest.created_at as tanggal, ms_type.type_guest, ms_type.button_color';
         $this->dbGuest->select($selectData);
         $this->dbGuest->from($this->tbl_header_guest);
         $this->dbGuest->join($this->tbl_detail_guest, $this->onJoinguest, $this->leftJoin);
         $this->dbGuest->join($this->tbl_type, $this->onJoinType, $this->leftJoin);
-        $this->dbGuest->order_by('type_guest');
+        $this->dbGuest->order_by('type_guest',);
         $query = $this->dbGuest->get_where();
         $data = array();
         if ($query !== FALSE && $query->num_rows() > 0) {
@@ -32,6 +32,8 @@ class Guest_model extends CI_Model
         }
         return $data;
     }
+
+
 
     function get_data_type()
     {

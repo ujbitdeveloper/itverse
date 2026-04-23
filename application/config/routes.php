@@ -55,13 +55,18 @@ $route['translate_uri_dashes'] = TRUE;
 
 //indexing route reservation
 $route['reservation'] = 'reservation/index';
+$route['show_meeting/(:any)'] = 'reservation/show_meeting/index/$1';
+$route['get_meeting_api/(:any)'] = 'reservation/show_meeting/get_meeting_api/$1';
+
 $route['form_reservation'] = 'reservation/index/form_reservation';
 
 //route process data reservation
 $route['data_reservation'] = 'reservation/reservation_room/get_data_reservation';
 $route['insert_reservation'] = 'reservation/reservation_room/insert_data_reservation';
 $route['get_data_ruangan'] = 'reservation/reservation_room/data_ruangan';
-$route['update_reservation'] = 'reservation/reservation_room/edit_data_reservation';
+$route['edit_reservation'] = 'reservation/reservation_room/edit_reservation';
+$route['cancle_booking/(:any)'] = 'reservation/reservation_room/cancle_booking/$1';
+
 //indexing route ticketing
 $route['service'] = 'ticketing/index';
 $route['form_service'] = 'ticketing/index/form_data_service';
@@ -86,6 +91,7 @@ $route['guest'] = 'guest/index';
 
 //route process data guest
 $route['get_data_guest'] = 'guest/guest/get_data_guest';
+$route['input_guest'] = 'guest/input_guest/index';
 
 /*
 | -------------------------------------------------------------------------

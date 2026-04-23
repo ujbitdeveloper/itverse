@@ -36,12 +36,26 @@ app.trans = {
 					orderable: false,
 					className: "action",
 					render: function (data) {
-						return `
-							<div class="action-group" style="display: flex; justify-content: center; align-items: center;">
-								<button type="button" class="btn btn-warning btn-edit">
-									<i class="ti ti-info-circle me-1"></i>Edit
+						if (data.is_active == 1) {
+							return `
+							<div class="action-group" style="display: flex; justify-content: center; align-items: center; gap: 8px;">
+								<button type="button" class="btn btn-success btn-edit">
+									Edit
 								</button>
-							</div>`;
+								<button type="button" class="btn btn-danger btn-cancle" onclick="cancleAction('${data.id}')">
+									Cancle Booking
+								</button>
+							</div>
+							`;
+						} else {
+							return `
+							<div class="action-group" style="display: flex; justify-content: center; align-items: center; gap: 8px;">
+								<button type="button" class="btn btn-secondary btn-cancle" >
+									Cancled
+								</button>
+							</div>
+							`;
+						}
 					},
 				},
 			],
@@ -71,11 +85,12 @@ app.trans = {
 			const data = row.data() || {};
 
 			// mengambil data yang sesuai id di formnya
-			$("#id").val(data.id_booking || "");
+			$("#idBooking").val(data.id_booking || "");
+			$("#idRuangan").val(data.id_ruangan || "");
 			$("#keterangan_edit").val(data.keterangan || "");
 			$("#tanggal_edit").val(data.tanggal || "");
 			$("#jam_dari_edit").val(data.jam_mulai || "");
-			$("#jam_dari_edit").val(data.jam_selesai || "");
+			$("#jam_sampai_edit").val(data.jam_selesai || "");
 
 			var typeOption = new Option(data.type, data.type, true, true);
 			$("#Ruangan_edit").append(typeOption).trigger("change");
@@ -96,11 +111,9 @@ app.trans = {
 	},
 };
 
-function nonActive(id) {
-	// Konfirmasikan tindakan reset password
-	if (confirm("Are you sure you want to non active this Charger?")) {
-		// Arahkan ke URL reset password di controller dengan membawa id pengguna
-		window.location.href = app.base_url + "data/charger_data/nonActive/" + id;
+function cancleAction(id) {
+	if (confirm("Are you sure you want to cancle?")) {
+		window.location.href = app.base_url + "cancle_booking/" + id;
 	}
 }
 jQuery(document).ready(function () {
