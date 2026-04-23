@@ -25,15 +25,16 @@
                 'master_nav' => "Service Center",
                 'active_nav' => "Service",
                 'page_header_tittle' => "Service Page",
-                'button_input_data' => "insert_service",
+                'button_input_data' => "form_service",
 
             );
             $this->load->view('layout/page_content_header', $data)
             ?>
             <!-- [ Main Content ] start -->
             <div class="row">
-                <?php $this->load->view('layout/header_button_input', $data);
-                // $this->load->view('charger/edit_charger_modal') 
+                <?php
+                $this->load->view('layout/header_button_input', $data);
+
                 ?>
 
                 <!-- [ basic-table ] start -->
@@ -57,7 +58,6 @@
                                                 <th>Keterangan Pengerjaan</th>
                                                 <th>IT Support</th>
                                                 <th>Status</th>
-                                                <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>

@@ -53,30 +53,39 @@ $route['default_controller'] = 'login';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = TRUE;
 
-//custom routes reservation
-$route['reservation'] = 'reservation/reservation_room';
+//indexing route reservation
+$route['reservation'] = 'reservation/index';
+$route['form_reservation'] = 'reservation/index/form_reservation';
+
+//route process data reservation
 $route['data_reservation'] = 'reservation/reservation_room/get_data_reservation';
 $route['insert_reservation'] = 'reservation/reservation_room/insert_data_reservation';
-$route['form_reservation'] = 'reservation/reservation_room/form_reservation';
 $route['get_data_ruangan'] = 'reservation/reservation_room/data_ruangan';
 $route['update_reservation'] = 'reservation/reservation_room/edit_data_reservation';
-
-//custom routes ticketing service item
-$route['service'] = 'ticketing/ticketing_service';
+//indexing route ticketing
+$route['service'] = 'ticketing/index';
+$route['form_service'] = 'ticketing/index/form_data_service';
+//routes data ticketing service item
+$route['get_data_karyawan'] = 'ticketing/ticketing_service/get_data_karyawan';
 $route['data_service'] = 'ticketing/ticketing_service/get_data_service';
 $route['insert_service'] = 'ticketing/ticketing_service/insert_data_service';
 $route['get_data_kategori'] = 'ticketing/ticketing_service/get_data_kategori';
-
+$route['selesai_user_service/(:any)'] = 'ticketing/ticketing_service/selesai_user_service/$1';
 //approval service
 $route['approval_service'] = 'ticketing/approval_service';
+$route['approve_service/(:any)'] = 'ticketing/approval_service/approve_service/$1';
 $route['data_approval_service'] = 'ticketing/approval_service/get_data_approval_service';
-// history pengerjaan
+$route['asign_service'] = 'ticketing/approval_service/asign_service';
+$route['finish_service'] = 'ticketing/approval_service/finish_service';
+// routes history pengerjaan
 $route['history_repair'] = 'ticketing/history_repair';
 $route['data_history_repair'] = 'ticketing/history_repair/get_data_history_repair';
 
-
-//custom routes guest
+//indexing routes guest
 $route['guest'] = 'guest/index';
+
+//route process data guest
+$route['get_data_guest'] = 'guest/guest/get_data_guest';
 
 /*
 | -------------------------------------------------------------------------

@@ -6,6 +6,7 @@ class Ticketing_model extends CI_Model
     private $tbl_header_ticket = "header_ticket";
     private $tbl_detail_ticket = "detail_ticket";
     private $kategori = "ms_kategori";
+    private $karyawan = "ms_karyawan";
     private $status = "ms_status";
     private $tbl_mskaryawan = "db_surat.ms_karyawan";
     private $onJoinTicketing = "header_ticket.id_request = detail_ticket.id_request";
@@ -35,11 +36,12 @@ class Ticketing_model extends CI_Model
             header_ticket.worked_by,
             ms_kategori.kategori,
             ms_status.nama_status,
+            ms_status.button_color,
             detail_ticket.nama_karyawan,
             detail_ticket.departemen,
             detail_ticket.tanggal_request,
             detail_ticket.keterangan_request,
-            detail_ticket.keterangan,
+            detail_ticket.keterangan_pengerjaan,
             ms_karyawan.nama_karyawan as pic
         ');
         $this->dbTicketing->from($this->tbl_header_ticket);
@@ -47,7 +49,6 @@ class Ticketing_model extends CI_Model
         $this->dbTicketing->join($this->kategori, $this->onJoinKategori, $this->leftJoin);
         $this->dbTicketing->join($this->status, $this->onJoinStatus, $this->leftJoin);
         $this->dbTicketing->join($this->tbl_mskaryawan, $this->onJoinKaryawan, $this->leftJoin);
-
         $this->dbTicketing->where('header_ticket.id_user', $idUser);
         $this->dbTicketing->order_by('header_ticket.id', 'ASC');
 
@@ -72,11 +73,12 @@ class Ticketing_model extends CI_Model
             header_ticket.worked_by,
             ms_kategori.kategori,
             ms_status.nama_status,
+            ms_status.button_color,
             detail_ticket.nama_karyawan,
             detail_ticket.departemen,
             detail_ticket.tanggal_request,
             detail_ticket.keterangan_request,
-            detail_ticket.keterangan,
+            detail_ticket.keterangan_pengerjaan,
             ms_karyawan.nama_karyawan as pic
         ');
         $this->dbTicketing->from($this->tbl_header_ticket);
@@ -86,6 +88,8 @@ class Ticketing_model extends CI_Model
         $this->dbTicketing->join($this->tbl_mskaryawan, $this->onJoinKaryawan, $this->leftJoin);
 
         $this->dbTicketing->where('header_ticket.worked_by', $idUser);
+        $this->dbTicketing->where_in('header_ticket.id_status', [4, 5]);
+
         $this->dbTicketing->order_by('header_ticket.id', 'ASC');
 
         $query = $this->dbTicketing->get_where();
@@ -111,7 +115,7 @@ class Ticketing_model extends CI_Model
             detail_ticket.departemen,
             detail_ticket.tanggal_request,
             detail_ticket.keterangan_request,
-            detail_ticket.keterangan,
+            detail_ticket.keterangan_pengerjaan,
             ms_status.nama_status
         ');
         $this->dbTicketing->from($this->tbl_header_ticket);
@@ -119,7 +123,7 @@ class Ticketing_model extends CI_Model
         $this->dbTicketing->join($this->kategori, $this->onJoinKategori, $this->leftJoin);
         $this->dbTicketing->join($this->status, $this->onJoinStatus, $this->leftJoin);
 
-        $this->dbTicketing->where_in('header_ticket.id_status', [1, 2, 4]);
+        $this->dbTicketing->where_in('header_ticket.id_status', [1, 2]);
         $this->dbTicketing->where_in('worked_by', [0, $idUser]);
 
         $this->dbTicketing->order_by('header_ticket.id_request', 'DESC');
@@ -145,10 +149,43 @@ class Ticketing_model extends CI_Model
         }
         return $data;
     }
+    function data_karyawan($id)
+    {
+        $selectData = 'nama_karyawan, id as id_karyawan';
+        $where = array(
+            'id_section' => 2,
+            'id <>' => $id,
+            'is_active' => 1
+        );
+        $this->db->select($selectData);
+        $this->db->from($this->karyawan);
+        $this->db->where($where);
+        $query = $this->db->get_where();
+        $data = array();
+        if ($query !== FALSE && $query->num_rows() > 0) {
+            $data = $query->result_array();
+        }
+        return $data;
+    }
+
     function insert_data($data, $table)
     {
         $this->dbTicketing->trans_start();
         $this->dbTicketing->insert($table, $data);
+        if ($this->dbTicketing->trans_status() === FALSE) {
+            $this->dbTicketing->trans_rollback();
+            return array('result' => false);
+        } else {
+            $this->dbTicketing->trans_commit();
+            return array('result' => true);
+        }
+    }
+
+    function update_data($data, $table, $where)
+    {
+        $this->dbTicketing->trans_start();
+        $this->dbTicketing->where($where);
+        $this->dbTicketing->update($table, $data);
         if ($this->dbTicketing->trans_status() === FALSE) {
             $this->dbTicketing->trans_rollback();
             return array('result' => false);

@@ -2,7 +2,7 @@ var app = app || {};
 $(function () {
 	$("#Ruangan_edit").select2({
 		theme: "bootstrap-5",
-		placeholder: "Select Station",
+		placeholder: "Select ruangan",
 		allowClear: true,
 		width: "100%",
 	});
@@ -13,11 +13,11 @@ $(function () {
 		dataType: "json",
 		success: function (res) {
 			const list = Array.isArray(res) ? res : res.data || [];
-			const $station = $("#Ruangan_edit").empty();
+			const $ruangan = $("#Ruangan_edit").empty();
 			list.forEach((r) => {
-				$station.append(new Option(r.nama_ruangan, r.id_ruangan, false, false));
+				$ruangan.append(new Option(r.nama_ruangan, r.id_ruangan, false, false));
 			});
-			$station.trigger("change"); // refresh select2
+			$ruangan.trigger("change"); // refresh select2
 		},
 	});
 });

@@ -32,8 +32,6 @@
             ?>
             <!-- [ Main Content ] start -->
             <div class="row">
-                <?php $this->load->view('layout/header_button_input', $data);
-                $this->load->view('charger/edit_charger_modal') ?>
 
                 <!-- [ basic-table ] start -->
                 <div class="col-xl-12">
@@ -44,16 +42,18 @@
                         <div class="card-body table-border-style">
                             <div class="table-responsive" id="pc-dt-filter">
                                 <section class="table-section">
-                                    <table id="tblCharger" class="table table-striped table-bordered nowrap">
+                                    <table id="tblGuest" class="table table-striped table-bordered nowrap">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
                                                 <th>Nama</th>
-                                                <th>Keterangan</th>
-                                                <th>Ruangan</th>
-                                                <th>Tanggal</th>
-                                                <th>Jam</th>
-                                                <th>Aksi</th>
+                                                <th>status</th>
+                                                <th>Instansi</th>
+                                                <th>Bertemu Dengan</th>
+                                                <th>Keperluan</th>
+                                                <th>Tanggal / Jam</th>
+                                                <th>No Telepon</th>
+                                                <th>Foto</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -73,6 +73,6 @@
     <?php $this->load->view('layout/footer') ?>
 
 </body>
-<script type="text/javascript" src="<?php echo base_url('assets/request/js/charger.js?v=') . time(); ?>"></script>
+<script type="text/javascript" src="<?php echo base_url('assets/request/guest/guest.js?v=') . time(); ?>"></script>
 
 </html>

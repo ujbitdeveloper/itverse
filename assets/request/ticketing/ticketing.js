@@ -32,21 +32,28 @@ app.trans = {
 				{ data: "created_date" },
 				{ data: "finished_date" },
 				{ data: "keterangan_request" },
-				{ data: "keterangan" },
+				{ data: "keterangan_pengerjaan" },
 				{ data: "pic" },
-				{ data: "nama_status" },
-
 				{
 					data: null,
 					orderable: false,
 					className: "action",
 					render: function (data) {
-						return `
+						if (data.id_status == 4) {
+							return `
 							<div class="action-group" style="display: flex; justify-content: center; align-items: center;">
-								<button type="button" class="btn btn-warning btn-edit">
-									<i class="ti ti-info-circle me-1"></i>Edit
+								<button type="button" class="btn btn-${data.button_color} btn-selesai" onclick="selesaiAction('${data.id_request}')">
+									Selesai Pengerjaan
 								</button>
 							</div>`;
+						} else {
+							return `
+							<div class="action-group" style="display: flex; justify-content: center; align-items: center;">
+								<button type="button" class="btn btn-${data.button_color} btn-edit" >
+									${data.nama_status}
+								</button>
+							</div>`;
+						}
 					},
 				},
 			],
@@ -101,11 +108,10 @@ app.trans = {
 	},
 };
 
-function nonActive(id) {
-	// Konfirmasikan tindakan reset password
-	if (confirm("Are you sure you want to non active this Charger?")) {
-		// Arahkan ke URL reset password di controller dengan membawa id pengguna
-		window.location.href = app.base_url + "data/charger_data/nonActive/" + id;
+function selesaiAction(id) {
+	console.log(id);
+	if (confirm("Are you sure you want to finish?")) {
+		window.location.href = app.base_url + "selesai_user_service/" + id;
 	}
 }
 jQuery(document).ready(function () {

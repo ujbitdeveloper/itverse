@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php $this->load->view('layout/header_style') ?>
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/style/select2/select2-bootstrap-5-theme.min.css">
 
 

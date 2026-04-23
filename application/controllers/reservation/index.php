@@ -5,7 +5,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Index extends CI_Controller
 {
     public $namaUser;
-    public  $idUser;
+    public $idUser;
     public $nik;
     function __construct()
     {
@@ -27,10 +27,11 @@ class Index extends CI_Controller
 
     public function index()
     {
-        $this->load->view('ticketing/index');
+        $this->load->view('reservation/index');
     }
-    public function form_data_service()
+
+    public function form_reservation()
     {
-        $this->load->view('ticketing/form_new_ticketing');
+        $this->load->view('reservation/form_new_reservation');
     }
 }

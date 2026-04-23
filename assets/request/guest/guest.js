@@ -4,12 +4,11 @@ app.trans = {
 	tbl: null,
 
 	init: function () {
-		this.init_table_reservation();
-		this.bind_events();
+		this.init_table_guest();
 	},
 
-	init_table_reservation: function () {
-		const $table = $("#tblRepair");
+	init_table_guest: function () {
+		const $table = $("#tblGuest");
 		this.tbl = $table.DataTable({
 			responsive: false,
 			serverSide: false,
@@ -18,7 +17,7 @@ app.trans = {
 			processing: true,
 			ajax: {
 				//ini url yang ada dicontroller cek urlnya diroutes
-				url: app.base_url + "data_history_repair",
+				url: app.base_url + "get_data_guest",
 				type: "POST",
 				dataType: "JSON",
 			},
@@ -27,13 +26,7 @@ app.trans = {
 				// dengan yang diinputkan disini
 
 				{ data: "no" },
-				{ data: "id_request" },
-				{ data: "kategori" },
-				{ data: "created_date" },
-				{ data: "finished_date" },
-				{ data: "keterangan_request" },
-				{ data: "keterangan_pengerjaan" },
-				{ data: "pic" },
+				{ data: "nama_lengkap" },
 				{
 					data: null,
 					orderable: false,
@@ -41,12 +34,18 @@ app.trans = {
 					render: function (data) {
 						return `
 							<div class="action-group" style="display: flex; justify-content: center; align-items: center;">
-								<button type="button" class="btn btn-${data.button_color} btn-edit" >
-									${data.nama_status}
+								<button type="button" class="btn btn-${data.button_color} btn-edit">
+									${data.type_guest}
 								</button>
 							</div>`;
 					},
 				},
+				{ data: "instansi" },
+				{ data: "bertemu_dengan" },
+				{ data: "keperluan" },
+				{ data: "tanggal" },
+				{ data: "no_tlp" },
+				{ data: "foto" },
 			],
 			select: true,
 			createdRow: function (row, data, dataIndex) {

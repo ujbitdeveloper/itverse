@@ -4,11 +4,12 @@ app.trans = {
 	tbl: null,
 
 	init: function () {
-		this.init_table_reservation();
-		this.bind_events();
+		this.init_table_approval();
+		this.selesai_action();
+		this.asign_action();
 	},
 
-	init_table_reservation: function () {
+	init_table_approval: function () {
 		const $table = $("#tblApproval");
 		this.tbl = $table.DataTable({
 			responsive: false,
@@ -31,7 +32,7 @@ app.trans = {
 				{ data: "nama_karyawan" },
 				{ data: "kategori" },
 				{ data: "created_date" },
-				{ data: "keterangan" },
+				{ data: "keterangan_pengerjaan" },
 				{ data: "nama_status" },
 
 				{
@@ -39,12 +40,25 @@ app.trans = {
 					orderable: false,
 					className: "action",
 					render: function (data) {
-						return `
+						if (data.id_status == 1) {
+							return `
 							<div class="action-group" style="display: flex; justify-content: center; align-items: center;">
-								<button type="button" class="btn btn-warning btn-edit">
-									<i class="ti ti-info-circle me-1"></i>Edit
+								<button type="button" class="btn btn-primary btn-approve" onclick="approveAction('${data.id_request}')">
+									Approve
 								</button>
 							</div>`;
+						} else {
+							return `
+							<div class="action-group" style="display: flex; justify-content: center; align-items: center; gap: 8px;">
+								<button type="button" class="btn btn-success btn-selesaiPengerjaan">
+									Selesai Pengerjaan
+								</button>
+								<button type="button" class="btn btn-danger btn-asign">
+									Asign
+								</button>
+							</div>
+							`;
+						}
 					},
 				},
 			],
@@ -60,52 +74,50 @@ app.trans = {
 			tbl.ajax.reload();
 		});
 	},
-	bind_events: function () {
+	selesai_action: function () {
 		const self = this;
-		// Delegated event ke tabel untuk tombol Edit
-		$("#tblReservation").on("click", ".btn-edit", function (e) {
+		$("#tblApproval").on("click", ".btn-selesaiPengerjaan", function (e) {
 			e.preventDefault();
-			// Ambil row data, aman untuk child row
 			let tr = $(this).closest("tr");
 			let row = self.tbl.row(tr);
 			if (tr.hasClass("child")) {
 				row = self.tbl.row(tr.prev());
 			}
+
 			const data = row.data() || {};
+			$("#idTransaksiSelesai").val(data.id_request || "");
 
-			// mengambil data yang sesuai id di formnya
-			$("#id").val(data.id_booking || "");
-			$("#keterangan_edit").val(data.keterangan || "");
-			$("#tanggal_edit").val(data.tanggal || "");
-			$("#jam_dari_edit").val(data.jam_mulai || "");
-			$("#jam_dari_edit").val(data.jam_selesai || "");
+			const modalEl = document.querySelector(".bd-finish-modal-lg");
+			const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+			modal.show();
+		});
+	},
+	asign_action: function () {
+		const self = this;
+		$("#tblApproval").on("click", ".btn-asign", function (e) {
+			e.preventDefault();
+			let tr = $(this).closest("tr");
+			let row = self.tbl.row(tr);
+			if (tr.hasClass("child")) {
+				row = self.tbl.row(tr.prev());
+			}
 
-			var typeOption = new Option(data.type, data.type, true, true);
-			$("#Ruangan_edit").append(typeOption).trigger("change");
+			const data = row.data() || {};
+			$("#idTransaksiAsign").val(data.id_request || "");
 
-			var stationOption = new Option(
-				data.nama_ruangan,
-				data.id_ruangan,
-				true,
-				true,
-			);
-			$("#Ruangan_edit").append(stationOption).trigger("change");
-
-			// Tampilkan modal
-			const modalEl = document.querySelector(".bd-reservation-modal-lg");
+			const modalEl = document.querySelector(".bd-asign-modal-lg");
 			const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
 			modal.show();
 		});
 	},
 };
 
-function nonActive(id) {
-	// Konfirmasikan tindakan reset password
-	if (confirm("Are you sure you want to non active this Charger?")) {
-		// Arahkan ke URL reset password di controller dengan membawa id pengguna
-		window.location.href = app.base_url + "data/charger_data/nonActive/" + id;
+function approveAction(id) {
+	if (confirm("Are you sure you want to approve?")) {
+		window.location.href = app.base_url + "approve_service/" + id;
 	}
 }
+
 jQuery(document).ready(function () {
 	app.trans.init();
 });

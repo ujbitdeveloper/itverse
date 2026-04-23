@@ -57,7 +57,6 @@
                                                 <th>Keterangan Pengerjaan</th>
                                                 <th>IT Support</th>
                                                 <th>Status</th>
-                                                <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>

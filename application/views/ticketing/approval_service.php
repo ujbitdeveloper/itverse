@@ -33,6 +33,7 @@
             <!-- [ Main Content ] start -->
             <div class="row">
                 <?php
+                $this->load->view('ticketing/modal_action')
                 // $this->load->view('charger/edit_charger_modal') 
                 ?>
 

@@ -40,7 +40,7 @@
                         <h5>Form Input Ticket</h5>
                     </div>
                     <div class="card-body">
-                        <form id="userForm" action="<?php echo site_url('insert_reservation') ?>" autocomplete="off" method="post">
+                        <form id="userForm" action="<?php echo site_url('insert_service') ?>" autocomplete="off" method="post">
                             <div class="col-md-12">
                                 <div class="form-floating mb-0">
                                     <div class="form-group">
