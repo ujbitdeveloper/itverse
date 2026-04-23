@@ -6,7 +6,10 @@
 }
 
 body {
-	background: url("../images/bg.jpg");
+	background: url("../images/bg-5.jpg");
+	background-position: center top; /* bisa diubah */
+	background-repeat: no-repeat;
+	background-size: cover;
 	height: 100vh;
 	color: white;
 }

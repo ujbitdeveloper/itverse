@@ -20,13 +20,13 @@ class show_meeting extends CI_Controller
         }
 
         $list_meeting = $this->RM->get_meeting_today($id_ruangan);
+        $ruangan = $this->RM->get_ruangan($id_ruangan);
         $current_meeting = null;
 
         $now = date('H:i:s');
         $now_time = strtotime($now);
 
         foreach ($list_meeting as &$row) {
-
             $start_time = strtotime($row->jam_mulai);
             $end_time   = strtotime($row->jam_selesai);
 
@@ -41,7 +41,8 @@ class show_meeting extends CI_Controller
         echo json_encode([
             'status' => true,
             'list_meeting' => $list_meeting,
-            'current_meeting' => $current_meeting
+            'current_meeting' => $current_meeting,
+            'ruangan' => $ruangan[0]['nama_ruangan'],
         ]);
     }
 }

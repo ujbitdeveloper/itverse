@@ -22,7 +22,8 @@ class Reservation_model extends CI_Model
         $this->dbReservation->select('*');
         $this->dbReservation->from($this->tbl_header_booking);
         $this->dbReservation->join($this->tbl_detail_booking, $this->onJoinBooking, 'left');
-        $this->dbReservation->where('id_ruangan', $id_ruangan);
+        $this->dbReservation->join($this->tbl_ruangan, $this->onJoinRuangan, 'left');
+        $this->dbReservation->where('header_booking.id_ruangan', $id_ruangan);
         $this->dbReservation->where('tanggal', date('Y-m-d'));
         $this->dbReservation->order_by('jam_mulai', 'ASC');
         $query = $this->dbReservation->get();
@@ -80,6 +81,20 @@ class Reservation_model extends CI_Model
         $this->dbReservation->select($selectData);
         $this->dbReservation->from($this->tbl_ruangan);
         $query = $this->dbReservation->get();
+        $data = array();
+        if ($query !== FALSE && $query->num_rows() > 0) {
+            $data = $query->result_array();
+        }
+        return $data;
+    }
+    function get_ruangan($id_ruangan)
+    {
+        $selectData = 'id_ruangan, nama_ruangan';
+
+        $this->dbReservation->select($selectData);
+        $this->dbReservation->from($this->tbl_ruangan);
+        $this->dbReservation->where('id_ruangan', $id_ruangan);
+        $query = $this->dbReservation->get_where();
         $data = array();
         if ($query !== FALSE && $query->num_rows() > 0) {
             $data = $query->result_array();
