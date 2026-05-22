@@ -6,8 +6,7 @@
     <title>Form Registrasi</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php $this->load->view('layout/header_style') ?>
-
-
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/style/select2/select2-bootstrap-5-theme.min.css">
     <style>
         :root {
             --secondary: #00bae3;
@@ -81,81 +80,121 @@
         <div class="row justify-content-center">
             <div class="col-md-6 col-11">
                 <div class="card p-4">
-                    <h4 class="text-center title mt-3">Form Registrasi</h4>
+                    <?php $this->load->view('layout/notif'); ?>
 
-                    <form method="get" action="<?= base_url('guest/form') ?>" novalidate>
+                    <h4 class="text-center title mt-3">Form Registrasi</h4>
+                        <form id="userForm" action="<?php echo site_url('insert_guest') ?>" autocomplete="off" method="post">
                         <div class="mb-3">
                             <label class="form-label">Pilih Kategori</label>
                             <div class="d-flex gap-2">
-                                <select name="id_jenis" class="form-control" onchange="pilihJenis(this.value)">
+                                <select name="id_jenis" id="id_jenis" class="form-control">
                                     <option value="">-- Pilih --</option>
-
                                 </select>
                             </div>
                         </div>
-                    </form>
-
-
-                    <form method="post" action="<?= base_url('guest/submit') ?>" enctype="multipart/form-data">
-                        <input type="hidden" name="id_jenis">
-                        <div class=" mb-3">
-                            <label>Nama Lengkap</label>
-                            <input type="text" name="nama" class="form-control" required>
+                        <div class="section-title">
+                            <div class=" mb-3">
+                                <label>Nama Lengkap</label>
+                                <input type="text" name="nama_lengkap" id="nama_lengkap" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label>No Telepon</label>
+                                <input type="text" name="no_tlp" id="no_tlp" class="form-control">
+                            </div>
                         </div>
-
                         <div class="section-title">
                             <div class="mb-3">
                                 <label>Alamat Lengkap</label>
-                                <textarea name="alamat" class="form-control" required></textarea>
+                                <textarea name="alamat" id="alamat" class="form-control"></textarea>
                             </div>
 
                             <div class="mb-3">
                                 <label>Posisi Lamaran</label>
-                                <input type="text" name="posisi" class="form-control" required>
+                                <input type="text" name="posisi" id="posisi" class="form-control">
                             </div>
                         </div>
-
-                        <label>No Telepon</label>
-                        <input type="text" name="no_tlp" class="form-control" required>
 
                         <div class="section-title">
                             <div class="mb-3">
                                 <label>Instansi</label>
-                                <input type="text" name="instansi" class="form-control" required>
+                                <input type="text" name="instansi" id="instansi" class="form-control">
                             </div>
 
                             <div class="mb-3">
                                 <label>Bertemu Dengan</label>
-                                <input type="text" name="tujuan" class="form-control" required>
+                                <input type="text" name="tujuan" id="tujuan" class="form-control">
                             </div>
 
                             <div class="mb-3">
                                 <label>Keperluan</label>
-                                <input type="text" name="keperluan" class="form-control" required>
+                                <input type="text" name="keperluan" id="keperluan" class="form-control">
                             </div>
                         </div>
-                        <div class="mb-3">
+                       <div class="mb-3">
+                        <label>Ambil Foto</label><br><br>
 
-                            <label>Ambil Foto</label><br><br>
+                        <button
+                            type="button"
+                            class="btn btn-primary mb-2"
+                            onclick="startCamera()">
+                            Aktifkan Kamera
+                        </button>
 
-                            <button type="button" class="btn btn-primary mb-2" onclick="startCamera()">
-                                Aktifkan Kamera
+                        <div id="cameraBox" style="display:none;">
+
+                            <video
+                                id="video"
+                                width="250"
+                                autoplay
+                                playsinline
+                                muted
+                                style="
+                                    border-radius:10px;
+                                    background:#000;
+                                ">
+                            </video>
+
+                            <br><br>
+
+                            <button
+                                type="button"
+                                class="btn btn-success btn-sm"
+                                onclick="ambilFoto()">
+                                Ambil Foto
                             </button>
 
-                            <div id="cameraBox" style="display:none;">
-                                <video id="video" width="250" autoplay style="border-radius:10px;"></video><br><br>
-                                <button type="button" class="btn btn-primary btn-sm" onclick="ambilFoto()">
-                                    Ambil Foto
-                                </button>
-                            </div>
-
-                            <canvas id="canvas" width="250" height="200" style="display:none;"></canvas>
-                            <br>
-                            <img id="preview" style="margin-top:10px; width:250px; border-radius:10px; display:none;">
-
-                            <input type="hidden" name="foto_base64" id="foto_base64">
+                            <button
+                                type="button"
+                                class="btn btn-danger btn-sm"
+                                onclick="stopCamera()">
+                                Tutup Kamera
+                            </button>
 
                         </div>
+
+                        <canvas
+                            id="canvas"
+                            width="250"
+                            height="200"
+                            style="display:none;">
+                        </canvas>
+
+                        <br>
+
+                        <img
+                            id="preview"
+                            style="
+                                margin-top:10px;
+                                width:250px;
+                                border-radius:10px;
+                                display:none;
+                            ">
+
+                        <input
+                            type="hidden"
+                            name="foto_base64"
+                            id="foto_base64">
+                    </div>
 
                         <button type="submit" class="btn btn-main w-100 text-white">
                             Simpan
@@ -168,54 +207,129 @@
             </div>
         </div>
     </div>
+  <?php $this->load->view('layout/footer') ?>
 
+<script>
 
+    let stream = null;
+    let isStarting = false;
 
-    <script>
-        let stream = null;
+    async function startCamera() {
 
-        function startCamera() {
+        if (isStarting) return;
 
-            navigator.mediaDevices.getUserMedia({
-                    video: true
-                })
-                .then(s => {
-                    stream = s;
+        isStarting = true;
 
-                    const video = document.getElementById('video');
-                    video.srcObject = stream;
-
-                    document.getElementById('cameraBox').style.display = 'block';
-                })
-                .catch(err => {
-                    alert("Kamera tidak diizinkan / tidak tersedia");
-                });
-        }
-
-        function ambilFoto() {
-            const video = document.getElementById('video');
-            const canvas = document.getElementById('canvas');
-            const context = canvas.getContext('2d');
-
-            context.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-            const dataURL = canvas.toDataURL('image/jpeg');
-
-            document.getElementById('preview').src = dataURL;
-            document.getElementById('preview').style.display = 'block';
-
-            document.getElementById('foto_base64').value = dataURL;
+        try {
 
             stopCamera();
-        }
 
-        function stopCamera() {
-            if (stream) {
-                stream.getTracks().forEach(track => track.stop());
+            const video = document.getElementById('video');
+
+            // tampilkan box dulu
+            document.getElementById('cameraBox').style.display = 'block';
+
+            // request camera
+            stream = await navigator.mediaDevices.getUserMedia({
+                video: {
+                    facingMode: "user",
+                    width: { ideal: 1280 },
+                    height: { ideal: 720 }
+                },
+                audio: false
+            });
+
+            video.srcObject = stream;
+
+            // force play
+            await video.play();
+
+            console.log("Camera active");
+
+        } catch (err) {
+
+            console.log(err);
+
+            alert(
+                "Camera gagal dibuka.\n\n" +
+                "Pastikan:\n" +
+                "- Izin camera allow\n" +
+                "- HTTPS aktif\n" +
+                "- Camera tidak dipakai aplikasi lain"
+            );
+
+            document.getElementById('cameraBox').style.display = 'none';
+
+        } finally {
+
+            isStarting = false;
+        }
+    }
+
+    function ambilFoto() {
+
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+
+        const context = canvas.getContext('2d');
+
+        // ambil ukuran asli video
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+
+        context.drawImage(
+            video,
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+
+        const dataURL = canvas.toDataURL(
+            'image/jpeg',
+            0.9
+        );
+
+        document.getElementById('preview').src = dataURL;
+        document.getElementById('preview').style.display = 'block';
+
+        document.getElementById('foto_base64').value = dataURL;
+
+        stopCamera();
+    }
+
+    function stopCamera() {
+
+        if (stream) {
+
+            stream.getTracks().forEach(track => {
+                track.stop();
+            });
+
+            stream = null;
+        }
+    }
+
+    // auto restart jika tab balik aktif
+    document.addEventListener("visibilitychange", () => {
+
+        if (!document.hidden) {
+
+            const cameraBox =
+                document.getElementById('cameraBox');
+
+            if (
+                cameraBox.style.display === 'block' &&
+                !stream
+            ) {
+                startCamera();
             }
         }
-    </script>
+    });
 
+</script>
+    
 </body>
+<script type="text/javascript" src="<?php echo base_url('assets/request/guest/form_guest.js?v=') . time(); ?>"></script>
 
 </html>

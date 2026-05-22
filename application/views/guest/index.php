@@ -48,11 +48,12 @@
                                                 <th>No</th>
                                                 <th>Nama</th>
                                                 <th>status</th>
+                                                <th>No Telepon</th>
+                                                <th>Posisi</th>
+                                                <th>Tanggal / Jam</th>
                                                 <th>Instansi</th>
                                                 <th>Bertemu Dengan</th>
                                                 <th>Keperluan</th>
-                                                <th>Tanggal / Jam</th>
-                                                <th>No Telepon</th>
                                                 <th>Foto</th>
                                             </tr>
                                         </thead>
@@ -74,5 +75,7 @@
 
 </body>
 <script type="text/javascript" src="<?php echo base_url('assets/request/guest/guest.js?v=') . time(); ?>"></script>
-
+<script>
+	const base_url = "<?= base_url(); ?>";
+</script>
 </html>

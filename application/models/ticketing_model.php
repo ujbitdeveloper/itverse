@@ -149,6 +149,44 @@ class Ticketing_model extends CI_Model
         }
         return $data;
     }
+
+    function get_data_history_repair($start, $end, $id){
+      $this->dbTicketing->select('
+            header_ticket.id_request,
+            header_ticket.id_user,
+            header_ticket.id_status,
+            header_ticket.created_date,
+            header_ticket.start_date,
+            header_ticket.end_date,
+            header_ticket.finished_date,
+            header_ticket.worked_by,
+            ms_kategori.kategori,
+            ms_status.nama_status,
+            ms_status.button_color,
+            detail_ticket.nama_karyawan,
+            detail_ticket.departemen,
+            detail_ticket.tanggal_request,
+            detail_ticket.keterangan_request,
+            detail_ticket.keterangan_pengerjaan,
+            ms_karyawan.nama_karyawan as pic
+        ');
+        $this->dbTicketing->from($this->tbl_header_ticket);
+        $this->dbTicketing->join($this->tbl_detail_ticket, $this->onJoinTicketing, $this->leftJoin);
+        $this->dbTicketing->join($this->kategori, $this->onJoinKategori, $this->leftJoin);
+        $this->dbTicketing->join($this->status, $this->onJoinStatus, $this->leftJoin);
+        $this->dbTicketing->join($this->tbl_mskaryawan, $this->onJoinKaryawan, $this->leftJoin);
+        $this->dbTicketing->where('header_ticket.worked_by', $id);
+        $this->dbTicketing->where('date(header_ticket.created_date) >=', $start);
+        $this->dbTicketing->where('date(header_ticket.created_date) <=', $end);
+        $this->dbTicketing->order_by('header_ticket.id', 'ASC');
+
+        $query = $this->dbTicketing->get_where();
+        $data = array();
+        if ($query !== FALSE && $query->num_rows() > 0) {
+            $data = $query->result_array();
+        }
+        return $data;
+    }
     function data_karyawan($id)
     {
         $selectData = 'nama_karyawan, id as id_karyawan';

@@ -16,16 +16,6 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="form-label" for="area_id">Area Name</label>
-                            <select class="form-select" id="area_id">
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="station_id">Station</label>
-                            <select class="form-select" id="station_id">
-                            </select>
-                        </div>
-                        <div class="form-group">
                             <div class="card-footer d-flex justify-content-end">
                                 <button class="btn btn-shadow btn-info" id="filterDate">Search</button>
                                 &nbsp;
@@ -39,4 +29,4 @@
             </div>
         </div>
 
-        <script type="text/javascript" src="<?php echo base_url('assets/request/js/filter_transaction.js?v=') . time(); ?>"></script>
+        <script type="text/javascript" src="<?php echo base_url('assets/request/ticketing/filter_transaction.js?v=') . time(); ?>"></script>

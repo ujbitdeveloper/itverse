@@ -84,6 +84,7 @@ $route['asign_service'] = 'ticketing/approval_service/asign_service';
 $route['finish_service'] = 'ticketing/approval_service/finish_service';
 // routes history pengerjaan
 $route['history_repair'] = 'ticketing/history_repair';
+$route['export_excel_history'] = 'ticketing/history_repair/export_excel_history';
 $route['data_history_repair'] = 'ticketing/history_repair/get_data_history_repair';
 
 //indexing routes guest
@@ -92,6 +93,8 @@ $route['guest'] = 'guest/index';
 //route process data guest
 $route['get_data_guest'] = 'guest/guest/get_data_guest';
 $route['input_guest'] = 'guest/input_guest/index';
+$route['insert_guest'] = 'guest/input_guest/insert_guest';
+$route['get_data_kategori'] = 'guest/input_guest/get_data_kategori';
 
 /*
 | -------------------------------------------------------------------------

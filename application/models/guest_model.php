@@ -19,7 +19,7 @@ class Guest_model extends CI_Model
 
     function get_data_guest()
     {
-        $selectData = 'header_detail.*, header_guest.id_jenis,header_guest.created_at as tanggal, ms_type.type_guest, ms_type.button_color';
+        $selectData = '*';
         $this->dbGuest->select($selectData);
         $this->dbGuest->from($this->tbl_header_guest);
         $this->dbGuest->join($this->tbl_detail_guest, $this->onJoinguest, $this->leftJoin);
@@ -40,7 +40,7 @@ class Guest_model extends CI_Model
         $selectData = 'id_type, type_guest';
 
         $this->dbGuest->select($selectData);
-        $this->dbGuest->from($this->tbl_ruangan);
+        $this->dbGuest->from($this->tbl_type);
         $query = $this->dbGuest->get();
         $data = array();
         if ($query !== FALSE && $query->num_rows() > 0) {
@@ -64,7 +64,7 @@ class Guest_model extends CI_Model
 
     function get_max_kode()
     {
-        $q = $this->dbGuest->query("SELECT MAX(RIGHT(id_guest,9)) AS kd_max FROM $this->header_guest");
+        $q = $this->dbGuest->query("SELECT MAX(RIGHT(id_guest,9)) AS kd_max FROM $this->tbl_header_guest");
         $kd = "";
         if ($q->num_rows() > 0) {
             foreach ($q->result() as $k) {

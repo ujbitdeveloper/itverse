@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php $this->load->view('layout/header_style') ?>
+<?php $this->load->view('layout/header_filter') ?>
+
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/style/css/table.css">
 
 <body data-pc-preset="preset-1" data-pc-direction="ltr" data-pc-theme="light">
@@ -28,13 +30,12 @@
                 'button_input_data' => "/chargers/input_new_charger",
 
             );
-            $this->load->view('layout/page_content_header', $data)
+            $this->load->view('layout/page_content_header', $data);
+            $this->load->view('layout/filter_transaction');
+
             ?>
             <!-- [ Main Content ] start -->
-            <div class="row">
-                <?php
-                // $this->load->view('charger/edit_charger_modal') 
-                ?>
+            
 
                 <!-- [ basic-table ] start -->
                 <div class="col-xl-12">

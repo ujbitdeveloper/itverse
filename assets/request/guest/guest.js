@@ -40,12 +40,32 @@ app.trans = {
 							</div>`;
 					},
 				},
+				{ data: "no_tlp" },
+				{ data: "posisi_lamaran" },
+				{ data: "tanggal" },
 				{ data: "instansi" },
 				{ data: "bertemu_dengan" },
 				{ data: "keperluan" },
-				{ data: "tanggal" },
-				{ data: "no_tlp" },
-				{ data: "foto" },
+				{
+					data: "foto",
+					render: function (data) {
+						return `
+						<div style="display:flex; justify-content:center;">
+							<img 
+								src="${base_url}assets/resource/img/${data}" 
+								alt="foto"
+								width="100"
+								height="100"
+								style="
+									object-fit:cover;
+									border:1px solid #ccc;
+									border-radius:8px;
+								"
+							>
+						</div>
+					`;
+					},
+				},
 			],
 			select: true,
 			createdRow: function (row, data, dataIndex) {
